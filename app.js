@@ -1,5 +1,3 @@
-// Modern Interactive Features for Scoreazy Landing Page
-
 class ScoreazyApp {
     constructor() {
         this.init();
@@ -16,7 +14,6 @@ class ScoreazyApp {
         this.initializeTheme();
     }
 
-    // Theme Toggle Functionality
     setupThemeToggle() {
         const themeToggle = document.getElementById('themeToggle');
         const themeIcon = themeToggle.querySelector('.theme-icon');
@@ -28,7 +25,6 @@ class ScoreazyApp {
             document.documentElement.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
             
-            // Update icon with smooth transition
             themeIcon.style.transform = 'rotate(180deg)';
             setTimeout(() => {
                 themeIcon.textContent = newTheme === 'dark' ? '☀️' : '🌙';
@@ -37,7 +33,6 @@ class ScoreazyApp {
         });
     }
 
-    // Initialize theme from localStorage or system preference
     initializeTheme() {
         const saved = localStorage.getItem('theme');
         const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -46,14 +41,12 @@ class ScoreazyApp {
         document.documentElement.setAttribute('data-theme', initial);
         document.documentElement.setAttribute('data-color-scheme', initial);
     
-        // Set correct icon
         const themeIcon = document.querySelector('.theme-icon');
         if (themeIcon) {
           themeIcon.textContent = initial === 'dark' ? '☀️' : '🌙';
         }
       }
 
-    // FAQ Accordion Functionality
     setupFAQ() {
         const faqItems = document.querySelectorAll('.faq-item');
         
@@ -63,10 +56,8 @@ class ScoreazyApp {
             question.addEventListener('click', () => {
                 const isActive = item.classList.contains('active');
                 
-                // Close all FAQ items
                 faqItems.forEach(faq => faq.classList.remove('active'));
                 
-                // Open clicked item if it wasn't active
                 if (!isActive) {
                     item.classList.add('active');
                 }
@@ -74,9 +65,7 @@ class ScoreazyApp {
         });
     }
 
-    // Smooth Scrolling for Navigation
     setupSmoothScrolling() {
-        // Handle navigation links
         const navLinks = document.querySelectorAll('a[href^="#"]');
         
         navLinks.forEach(link => {
@@ -86,7 +75,7 @@ class ScoreazyApp {
                 const targetElement = document.getElementById(targetId);
                 
                 if (targetElement) {
-                    const offsetTop = targetElement.offsetTop - 80; // Account for fixed navbar
+                    const offsetTop = targetElement.offsetTop - 80; 
                     window.scrollTo({
                         top: offsetTop,
                         behavior: 'smooth'
@@ -96,7 +85,6 @@ class ScoreazyApp {
         });
     }
 
-    // Intersection Observer for Animations
     setupIntersectionObserver() {
         const observerOptions = {
             threshold: 0.1,
@@ -108,7 +96,6 @@ class ScoreazyApp {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('animate-in');
                     
-                    // Special handling for different elements
                     if (entry.target.classList.contains('feature-card')) {
                         this.animateFeatureCard(entry.target);
                     }
@@ -128,7 +115,6 @@ class ScoreazyApp {
             });
         }, observerOptions);
 
-        // Observe elements for animation
         const elementsToObserve = [
             ...document.querySelectorAll('.feature-card'),
             ...document.querySelectorAll('.timeline-item'),
@@ -140,7 +126,6 @@ class ScoreazyApp {
         elementsToObserve.forEach(el => observer.observe(el));
     }
 
-    // Feature Card Animation
     animateFeatureCard(card) {
         card.style.opacity = '0';
         card.style.transform = 'translateY(30px)';
@@ -149,10 +134,9 @@ class ScoreazyApp {
         setTimeout(() => {
             card.style.opacity = '1';
             card.style.transform = 'translateY(0)';
-        }, Math.random() * 200); // Stagger animation
+        }, Math.random() * 200); 
     }
 
-    // Timeline Item Animation
     animateTimelineItem(item) {
         const isEven = Array.from(item.parentNode.children).indexOf(item) % 2 === 1;
         const direction = isEven ? '30px' : '-30px';
@@ -167,7 +151,6 @@ class ScoreazyApp {
         }, 100);
     }
 
-    // Testimonial Card Animation
     animateTestimonialCard(card) {
         card.style.opacity = '0';
         card.style.transform = 'scale(0.9) translateY(20px)';
@@ -179,7 +162,6 @@ class ScoreazyApp {
         }, Math.random() * 300);
     }
 
-    // Pricing Card Animation
     animatePricingCard(card) {
         card.style.opacity = '0';
         card.style.transform = 'translateY(40px)';
@@ -191,7 +173,6 @@ class ScoreazyApp {
         }, Math.random() * 200);
     }
 
-    // CTA Button Interactions
     setupCTAButtons() {
         const ctaButtons = document.querySelectorAll('.cta-button');
         
@@ -199,13 +180,11 @@ class ScoreazyApp {
             button.addEventListener('click', (e) => {
                 e.preventDefault();
                 
-                // Add click animation
                 button.style.transform = 'scale(0.95)';
                 setTimeout(() => {
                     button.style.transform = 'scale(1)';
                 }, 150);
                 
-                // Handle different button types based on data-cta attribute
                 const ctaType = button.getAttribute('data-cta');
                 
                 switch(ctaType) {
@@ -223,7 +202,6 @@ class ScoreazyApp {
                         this.handlePricingCTA(button);
                         break;
                     default:
-                        // Fallback for buttons without data-cta
                         if (button.textContent.includes('Start Your Child\'s Journey') || 
                             button.textContent.includes('Start Your Child\'s Confidence Journey')) {
                             this.handlePrimaryCTA();
@@ -239,7 +217,6 @@ class ScoreazyApp {
             });
         });
 
-        // Add hover effects to all buttons
         const allButtons = document.querySelectorAll('.btn');
         allButtons.forEach(button => {
             button.addEventListener('mouseenter', () => {
@@ -252,9 +229,7 @@ class ScoreazyApp {
         });
     }
 
-    // Handle Primary CTA
     handlePrimaryCTA() {
-        // Simulate enrollment process
         this.showNotification('🎉 Starting enrollment process...', 'success');
         
         setTimeout(() => {
@@ -262,9 +237,7 @@ class ScoreazyApp {
         }, 1500);
     }
 
-    // Handle Secondary CTA
     handleSecondaryCTA() {
-        // Simulate download
         this.showNotification('📥 Preparing your free preview...', 'info');
         
         setTimeout(() => {
@@ -272,7 +245,6 @@ class ScoreazyApp {
         }, 2000);
     }
 
-    // Handle Consultation CTA
     handleConsultationCTA() {
         this.showNotification('📞 Opening consultation booking...', 'info');
         
@@ -281,7 +253,6 @@ class ScoreazyApp {
         }, 1500);
     }
 
-    // Handle Pricing CTA
     handlePricingCTA(button) {
         const planName = button.closest('.pricing-card').querySelector('h3').textContent;
         this.showNotification(`🎯 Selected ${planName} plan!`, 'success');
@@ -291,9 +262,7 @@ class ScoreazyApp {
         }, 1500);
     }
 
-    // Show Notification
     showNotification(message, type = 'info') {
-        // Remove existing notifications
         const existingNotifications = document.querySelectorAll('.notification');
         existingNotifications.forEach(notif => notif.remove());
         
@@ -301,12 +270,10 @@ class ScoreazyApp {
         notification.className = `notification notification--${type}`;
         notification.textContent = message;
         
-        // Get CSS variables for colors
         const getComputedColor = (variable) => {
             return getComputedStyle(document.documentElement).getPropertyValue(variable).trim();
         };
         
-        // Add styles
         Object.assign(notification.style, {
             position: 'fixed',
             top: '100px',
@@ -330,19 +297,16 @@ class ScoreazyApp {
         
         document.body.appendChild(notification);
         
-        // Animate in
         setTimeout(() => {
             notification.style.transform = 'translateX(0)';
         }, 100);
         
-        // Auto remove after 4 seconds
         setTimeout(() => {
             notification.style.transform = 'translateX(100%)';
             setTimeout(() => notification.remove(), 300);
         }, 4000);
     }
 
-    // Progress Bar Animations
     setupProgressBars() {
         const progressBars = document.querySelectorAll('.progress-fill');
         
@@ -356,7 +320,6 @@ class ScoreazyApp {
             }, 500);
         };
 
-        // Animate progress bars when they come into view
         const progressObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -368,9 +331,7 @@ class ScoreazyApp {
         progressBars.forEach(bar => progressObserver.observe(bar));
     }
 
-    // Mobile Menu (for future enhancement)
     setupMobileMenu() {
-        // Add mobile menu toggle if needed
         const navMenu = document.querySelector('.nav-menu');
         let isMobile = window.innerWidth <= 768;
         
@@ -383,8 +344,6 @@ class ScoreazyApp {
         
         window.addEventListener('resize', handleResize);
     }
-
-    // Utility function to add CSS animations
     addAnimationCSS() {
         const style = document.createElement('style');
         style.textContent = `
@@ -421,7 +380,6 @@ class ScoreazyApp {
                 animation: pulse 2s infinite;
             }
 
-            /* Enhanced button hover effects */
             .btn {
                 transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             }
@@ -439,7 +397,6 @@ class ScoreazyApp {
     }
 }
 
-// Advanced Effects
 class AdvancedEffects {
     constructor() {
         this.setupParallax();
@@ -447,7 +404,6 @@ class AdvancedEffects {
         this.setupNavbarScroll();
     }
 
-    // Parallax scrolling for hero shapes
     setupParallax() {
         const heroShapes = document.querySelectorAll('.hero-shape, .hero-shape-2');
         let ticking = false;
@@ -471,7 +427,6 @@ class AdvancedEffects {
         window.addEventListener('scroll', handleScroll);
     }
 
-    // Counter animations for statistics
     setupCounters() {
         const counters = document.querySelectorAll('.stat-number');
         
@@ -483,7 +438,7 @@ class AdvancedEffects {
             if (isNaN(numericValue)) return;
             
             let current = 0;
-            const increment = numericValue / 60; // 60 frames for smooth animation
+            const increment = numericValue / 60; 
             
             const timer = setInterval(() => {
                 current += increment;
@@ -494,7 +449,7 @@ class AdvancedEffects {
                     const displayValue = Math.floor(current);
                     counter.textContent = displayValue.toLocaleString() + suffix;
                 }
-            }, 16); // ~60fps
+            }, 16); 
         };
         
         const counterObserver = new IntersectionObserver((entries) => {
@@ -509,7 +464,6 @@ class AdvancedEffects {
         counters.forEach(counter => counterObserver.observe(counter));
     }
 
-    // Navbar scroll effects
     setupNavbarScroll() {
         const navbar = document.querySelector('.navbar');
         let lastScrollTop = 0;
@@ -518,14 +472,11 @@ class AdvancedEffects {
             const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
             
             if (scrollTop > lastScrollTop && scrollTop > 100) {
-                // Scrolling down
                 navbar.style.transform = 'translateY(-100%)';
             } else {
-                // Scrolling up
                 navbar.style.transform = 'translateY(0)';
             }
             
-            // Add backdrop blur effect based on scroll
             if (scrollTop > 50) {
                 navbar.style.backdropFilter = 'blur(20px)';
                 navbar.style.borderBottom = '1px solid var(--color-border)';
@@ -541,7 +492,6 @@ class AdvancedEffects {
     }
 }
 
-// Performance Monitor
 class PerformanceMonitor {
     constructor() {
         this.startTime = performance.now();
@@ -549,17 +499,15 @@ class PerformanceMonitor {
     }
     
     setupMonitoring() {
-        // Log page load performance
         window.addEventListener('load', () => {
             const loadTime = performance.now() - this.startTime;
             console.log(`🚀 Page loaded in ${loadTime.toFixed(2)}ms`);
             
-            // Log performance metrics if available
             if (typeof PerformanceObserver !== 'undefined') {
                 try {
                     const observer = new PerformanceObserver((list) => {
                         list.getEntries().forEach((entry) => {
-                            if (entry.duration > 100) { // Only log slower operations
+                            if (entry.duration > 100) { 
                                 console.log(`📊 ${entry.entryType}: ${entry.name} - ${entry.duration.toFixed(2)}ms`);
                             }
                         });
@@ -567,26 +515,20 @@ class PerformanceMonitor {
                     
                     observer.observe({ entryTypes: ['navigation', 'resource'] });
                 } catch (e) {
-                    // Silently handle observer errors
                 }
             }
         });
     }
 }
 
-// Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    // Initialize main app
     const app = new ScoreazyApp();
     app.addAnimationCSS();
     
-    // Initialize advanced effects
     const effects = new AdvancedEffects();
     
-    // Initialize performance monitoring
     const perfMonitor = new PerformanceMonitor();
     
-    // Add some fun Easter eggs for developers
     console.log(`
     🎯 Welcome to Scoreazy's Confidence Building Landing Page!
     🚀 Built with modern web technologies
@@ -599,12 +541,10 @@ document.addEventListener('DOMContentLoaded', () => {
     Navigation: Click the menu links for smooth scrolling
     `);
     
-    // Add developer-friendly features
     if (window.location.hash === '#dev') {
         document.body.classList.add('dev-mode');
         console.log('🛠️ Developer mode activated!');
     }
 });
 
-// Export for potential use in other scripts
 window.ScoreazyApp = ScoreazyApp;
